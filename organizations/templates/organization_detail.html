@@ -1,0 +1,34 @@
+<!-- organizations/templates/organizations/organization_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}{{ organization.name }} - Organization{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="mt-4 mb-4">{{ organization.name }} - Organization</h1>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <p class="card-text">Description: {{ organization.description }}</p>
+                        <h5 class="card-title">Demonstrations organized by {{ organization.name }}:</h5>
+                        {% if demonstrations %}
+                            <ul>
+                                {% for demonstration in demonstrations %}
+                                    <li>
+                                        <a href="{% url 'protest_detail' demonstration.id %}">
+                                            {{ demonstration.location }} - {{ demonstration.date }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No demonstrations organized by {{ organization.name }}.</p>
+                        {% endif %}
+                        <!-- Add more details as needed -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

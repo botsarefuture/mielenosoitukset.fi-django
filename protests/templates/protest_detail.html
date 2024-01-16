@@ -1,0 +1,32 @@
+<!-- Updated protests/templates/protests/protest_detail.html with links to organization and topics -->
+
+{% extends 'base.html' %}
+
+{% block title %}{{ protest.location }} - Protest{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="mt-4 mb-4">{{ protest.location }} - {{ protest.date }}</h1>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Organization: 
+                            <a href="{% url 'organization_detail' protest.organization.id %}">
+                                {{ protest.organization.name }}
+                            </a>
+                        </h5>
+                        <p class="card-text">Topics: 
+                            {% for topic in protest.topics.all %}
+                                <a href="{% url 'topic_detail' topic.id %}">
+                                    <span class="badge badge-primary">{{ topic.name }}</span>
+                                </a>
+                            {% endfor %}
+                        </p>
+                        <!-- Add more details as needed -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

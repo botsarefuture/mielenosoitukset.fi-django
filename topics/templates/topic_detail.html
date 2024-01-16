@@ -1,0 +1,30 @@
+<!-- topics/templates/topics/topic_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}{{ topic.name }} - Topic{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="mt-4 mb-4">{{ topic.name }} - Topic</h1>
+                <p>{{ topic.description }}</p>
+                <h2>Demonstrations related to {{ topic.name }}:</h2>
+                {% if demonstrations %}
+                    <ul>
+                        {% for demonstration in demonstrations %}
+                            <li>
+                                <a href="{% url 'protest_detail' demonstration.id %}">
+                                    {{ demonstration.location }} - {{ demonstration.date }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No demonstrations related to {{ topic.name }}.</p>
+                {% endif %}
+                <!-- Add more details as needed -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

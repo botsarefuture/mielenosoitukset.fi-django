@@ -1,0 +1,20 @@
+<!-- Updated organizations/templates/organizations/organization_list.html with links -->
+
+{% extends 'base.html' %}
+
+{% block title %}Organization List{% endblock %}
+
+{% block content %}
+    <h1>Organization List</h1>
+    {% for organization in organizations %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h2 class="card-title">
+                    <a href="{% url 'organization_detail' organization.id %}">{{ organization.name }}</a>
+                </h2>
+                <p class="card-text">Description: {{ organization.description }}</p>
+                <!-- Add more details as needed -->
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
