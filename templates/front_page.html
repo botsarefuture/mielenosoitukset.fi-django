@@ -1,0 +1,26 @@
+<!-- templates/front_page.html -->
+{% extends 'base.html' %}
+
+{% block title %}Front Page{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">List of Demonstrations</h1>
+    <div class="row">
+        {% for demonstration in demonstrations %}
+            <div class="col-md-4 mb-4">
+                <a href="{% url 'protest_detail' demonstration.id %}">
+                    <div class="card">
+                        <img src="{{ demonstration.image.url }}" class="card-img-top" alt="{{ demonstration.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ demonstration.title }}</h5>
+                            <p class="card-text">{{ demonstration.description }}</p>
+                            <p class="card-text"><small class="text-muted">Date: {{ demonstration.date }}</small></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

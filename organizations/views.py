@@ -71,3 +71,4 @@ class OrganizationUpdateView(UserPassesTestMixin, UpdateView):
         # Save the user making the change to the organization
         form.instance.modified_by = self.request.user
         return super().form_valid(form)
+    

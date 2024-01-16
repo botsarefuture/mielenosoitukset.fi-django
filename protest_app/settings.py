@@ -60,6 +60,8 @@ ROOT_URLCONF = 'protest_app.urls'
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
+MEDIA_URL = '/demonstration_images/'
+MEDIA_ROOT = BASE_DIR / 'demonstration_images/'
 
 TEMPLATES = [
     {

@@ -25,11 +25,15 @@ from organizations.models import Organization
 from topics.models import Topic
 
 class Protest(models.Model):
+    title = models.CharField(max_length=255, null=True)
+
     location = models.CharField(max_length=100)
     date = models.DateField()
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     topics = models.ManyToManyField(Topic)
     details = models.TextField()  # Add details for the protest/demonstration
+    image = models.ImageField(upload_to='demonstration_images/', null=True)  # Adjust the upload path as needed
+
     # Add more fields as needed
 
     def __str__(self):

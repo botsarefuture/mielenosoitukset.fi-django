@@ -47,3 +47,10 @@ def edit_protest(request, pk):
         form = ProtestForm(request.user, instance=protest)
 
     return render(request, 'edit_protest.html', {'form': form, 'protest': protest})
+
+# protests/views.py
+from django.shortcuts import render
+
+def front_page(request):
+    demonstrations = Protest.objects.all()
+    return render(request, 'front_page.html', {'demonstrations': demonstrations})
