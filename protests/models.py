@@ -2,7 +2,6 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
-from modeltranslation.translator import TranslationOptions, register
 from organizations.models import Organization
 from topics.models import Topic
 from django.urls import reverse
