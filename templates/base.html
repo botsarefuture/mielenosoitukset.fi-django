@@ -31,9 +31,20 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'organization_list' %}">Organizations</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="protestsDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Protests
+                </a>
+                <div class="dropdown-menu" aria-labelledby="protestsDropdown">
+                    <a class="dropdown-item" href="{% url 'protest_list' %}">All Protests</a>
+                    {% if user.is_authenticated %}
+                    <a class="dropdown-item" href="{% url 'create_protest' %}">New Protest</a>
+                    {% endif %}
+                </div>
+                
             </li>
+
         </ul>
 
         <ul class="navbar-nav ml-auto">
