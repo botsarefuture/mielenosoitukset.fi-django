@@ -40,12 +40,17 @@ def organization_list(request):
     organizations = Organization.objects.all()
     return render(request, 'organizations/organization_list.html', {'organizations': organizations})
 
-@login_required  # Add this decorator
+@login_required
 def register_organization(request):
     if request.method == 'POST':
         form = OrganizationForm(request.POST)
         if form.is_valid():
-            form.save()
+            # Save the organization and get the instance
+            organization = form.save()
+
+            # Create a membership relationship between the creator and the organization
+            Membership.objects.create(user=request.user, organization=organization, access_level='owner')
+
             return redirect('organization_list')  # Redirect to the organization list page
     else:
         form = OrganizationForm()

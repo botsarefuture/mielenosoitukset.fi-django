@@ -5,6 +5,8 @@ from django.utils import timezone
 from modeltranslation.translator import TranslationOptions, register
 from organizations.models import Organization
 from topics.models import Topic
+from django.urls import reverse
+
 
 class UpcomingProtestManager(models.Manager):
     def get_queryset(self):
@@ -21,6 +23,9 @@ class Protest(models.Model):
 
     objects = models.Manager()
     upcoming_protests = UpcomingProtestManager()
+    
+    def get_absolute_url(self):
+        return reverse('protest_detail', args=[str(self.id)])
 
     def __str__(self):
         return f"{self.location} - {self.date}"

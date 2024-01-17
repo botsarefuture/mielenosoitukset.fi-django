@@ -1,2 +1,1 @@
 Django==5.0.1
-modeltranslation==0.25

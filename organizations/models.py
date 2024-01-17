@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+
 
 class Organization(models.Model):
     name = models.CharField(max_length=255)
@@ -11,6 +13,9 @@ class Organization(models.Model):
     
     logo = models.ImageField(upload_to='organization_logos/', blank=True, null=True)
 
+    def get_absolute_url(self):
+        return reverse('organization_detail', kwargs={'organization_id': self.pk})
+    
     def __str__(self):
         return self.name
 
