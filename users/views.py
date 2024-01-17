@@ -5,6 +5,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from organizations.models import Membership
 from .forms import CustomUserCreationForm, CustomUserChangeForm, ChangePasswordForm
 
 def register(request):
@@ -18,9 +19,40 @@ def register(request):
 
     return render(request, 'register.html', {'form': form})
 
+from users.models import CustomUser  # Replace with the actual import path for your CustomUser model
+from typing import Dict
+
+def get_user_organizations_access(user_id: int) -> Dict[str, str]:
+    try:
+        # Retrieve the user object
+        user = CustomUser.objects.get(id=user_id)
+
+        # Retrieve the user's memberships and related organizations with access levels
+        user_memberships = Membership.objects.filter(user=user)
+        
+        return user_memberships
+
+        # Create a dictionary to store organization names and access levels
+        organizations_access = {}
+
+        # Iterate through user memberships to get organization names and access levels
+        for membership in user_memberships:
+            organization_name = membership.organization.name
+            access_level = membership.get_access_level_display()  # Get the display value of the access level
+            organizations_access[organization_name] = access_level
+
+        return organizations_access
+
+    except CustomUser.DoesNotExist:
+        # Handle the case where the user does not exist
+        return {}
+
+
+
+
 @login_required
 def profile(request):
-    return render(request, 'profile.html')
+    return render(request, 'profile.html', context={"info": get_user_organizations_access(request.user.id)})
 
 @login_required
 def profile_edit(request):

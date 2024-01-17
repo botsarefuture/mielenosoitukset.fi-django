@@ -1,12 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Edit Profile</h2>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save changes</button>
-  </form>
-  <br>
-  <p>If you want to change your password, you can do so on the <a href="{% url 'change_password' %}">change password page</a>.</p>
+  <div class="container mt-4">
+    <h2>Edit Profile</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.username.label_tag }}
+        {{ form.username }}
+      </div>
+      <div class="form-group">
+        {{ form.email.label_tag }}
+        {{ form.email }}
+      </div>
+      <!-- Add more form fields as needed -->
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </form>
+
+    <div class="mt-4">
+      <p>If you want to change your password, you can do so on the <a href="{% url 'change_password' %}">change password page</a>.</p>
+    </div>
+  </div>
 {% endblock %}
