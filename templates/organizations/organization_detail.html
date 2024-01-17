@@ -1,7 +1,8 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+
 {% block title %}
   {{ organization.name }} - Organization
-{% endblock %} 
+{% endblock %}
 
 {% block content %}
 <style>
@@ -24,6 +25,30 @@
     padding: 20px;
     border-radius: 8px;
   }
+
+  .card-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .card-text {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+
+  .badge-primary {
+    margin-right: 5px;
+  }
+
+  .demonstrations-list {
+    list-style-type: none;
+    padding: 0;
+    font-size: 1.2rem;
+  }
+
+  .demonstrations-list-item {
+    margin-bottom: 10px;
+  }
 </style>
 
 <div class="container">
@@ -32,7 +57,7 @@
 
       <!-- Toolbox Section -->
       {% if user.is_superuser %}
-        <div class="toolbox">         
+        <div class="toolbox">
           {% if user_can_edit_organization %}
             <a href="{% url 'organization_update' organization.id %}" class="btn btn-warning">
               Edit Organization
@@ -53,35 +78,34 @@
             {% if organization.description %}
               <p class="card-text">Description: {{ organization.description }}</p>
             {% endif %}
-            
+
             {% if organization.location %}
               <p class="card-text">Location: {{ organization.location }}</p>
             {% endif %}
-            
+
             {% if organization.date_of_foundation %}
               <p class="card-text">Date of Foundation: {{ organization.date_of_foundation }}</p>
             {% endif %}
-            
+
             {% if organization.contact_email %}
               <p class="card-text">Contact Email: {{ organization.contact_email }}</p>
             {% endif %}
-            
+
             {% if organization.website %}
               <p class="card-text">Website: {{ organization.website }}</p>
             {% endif %}
-            
+
             {% if organization.activism_focus %}
               <p class="card-text">Activism Focus: {{ organization.activism_focus }}</p>
             {% endif %}
-            
             <!-- Add more details as needed -->
 
             <h5 class="card-title">Demonstrations organized by {{ organization.name }}:</h5>
 
             {% if demonstrations %}
-              <ul>
+              <ul class="demonstrations-list">
                 {% for demonstration in demonstrations %}
-                  <li>
+                  <li class="demonstrations-list-item">
                     <a href="{% url 'protest_detail' demonstration.id %}">
                       {{ demonstration.location }} - {{ demonstration.date }}
                     </a>

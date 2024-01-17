@@ -1,4 +1,3 @@
-<!-- topics/templates/topics/topic_detail.html -->
 {% extends 'base.html' %}
 
 {% block title %}{{ topic.name }} - Topic{% endblock %}
@@ -7,23 +6,27 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h1 class="mt-4 mb-4">{{ topic.name }} - Topic</h1>
-                <p>{{ topic.description }}</p>
-                <h2>Demonstrations related to {{ topic.name }}:</h2>
-                {% if demonstrations %}
-                    <ul>
-                        {% for demonstration in demonstrations %}
-                            <li>
-                                <a href="{% url 'protest_detail' demonstration.id %}">
-                                    {{ demonstration.location }} - {{ demonstration.date }}
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>No demonstrations related to {{ topic.name }}.</p>
-                {% endif %}
-                <!-- Add more details as needed -->
+                <div class="card mt-4 mb-4">
+                    <div class="card-body">
+                        <h1 class="card-title">{{ topic.name }} - Topic</h1>
+                        <p class="card-text">{{ topic.description }}</p>
+                        <h2 class="mt-4 mb-3">Demonstrations related to {{ topic.name }}:</h2>
+                        {% if demonstrations %}
+                            <ul class="list-group">
+                                {% for demonstration in demonstrations %}
+                                    <li class="list-group-item">
+                                        <a href="{% url 'protest_detail' demonstration.id %}">
+                                            {{ demonstration.location }} - {{ demonstration.date }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No demonstrations related to {{ topic.name }}.</p>
+                        {% endif %}
+                        <!-- Add more details as needed -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>

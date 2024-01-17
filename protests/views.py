@@ -54,3 +54,12 @@ from django.shortcuts import render
 def front_page(request):
     demonstrations = Protest.upcoming_protests.all()
     return render(request, 'front_page.html', {'demonstrations': demonstrations})
+
+def delete_protest(request, pk):
+    protest = get_object_or_404(Protest, pk=pk)
+
+    if request.method == 'POST':
+        protest.delete()
+        return redirect('protest_list')  # Redirect to the list of protests after deletion
+
+    return render(request, 'delete_protest.html', {'protest': protest})

@@ -1,11 +1,12 @@
+# models.py
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils import timezone
+from modeltranslation.translator import TranslationOptions, register
 from organizations.models import Organization
 from topics.models import Topic
-from django.db.models import Manager, QuerySet, ExpressionWrapper, F, DateTimeField
-from django.utils import timezone
 
-class UpcomingProtestManager(Manager):
+class UpcomingProtestManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(date__gte=timezone.now())
 
@@ -24,6 +25,8 @@ class Protest(models.Model):
     def __str__(self):
         return f"{self.location} - {self.date}"
 
+
+
 class Role(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField()
@@ -31,6 +34,7 @@ class Role(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Participant(models.Model):
     email = models.EmailField()

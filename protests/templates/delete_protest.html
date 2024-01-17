@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Confirm Protest Deletion</h2>
+          <p class="lead text-center">
+            Are you absolutely certain you wish to delete the protest titled "{{ protest.title }}"?
+          </p>
+          <form method="post" action="{% url 'delete_protest' pk=protest.pk %}">
+            {% csrf_token %}
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-danger btn-lg">Yes, Delete</button>
+            </div>
+          </form>
+          <div class="text-center mt-3">
+            <a href="{% url 'protest_detail' protest_id=protest.pk %}" class="btn btn-secondary btn-lg">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

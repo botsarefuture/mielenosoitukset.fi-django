@@ -5,11 +5,11 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">List of Demonstrations</h1>
+    <h1 class="mb-4 text-center">Upcoming Demonstrations</h1>
     <div class="row">
         {% for demonstration in demonstrations %}
             <div class="col-md-4 mb-4">
-                <a href="{% url 'protest_detail' demonstration.id %}">
+                <a href="{% url 'protest_detail' demonstration.id %}" style="text-decoration: none; color: inherit;">
                     <div class="card">
                         {% if demonstration.image %}
                         <img src="{{ demonstration.image.url }}" class="card-img-top" alt="{{ demonstration.title }}">

@@ -1,19 +1,19 @@
-# models.py
 from django.db import models
 
 class Organization(models.Model):
     name = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)  # Make description optional
-    location = models.CharField(max_length=100, blank=True, null=True)  # Make location optional
-    date_of_foundation = models.DateField(blank=True, null=True)  # Make date of foundation optional
-    contact_email = models.EmailField(blank=True, null=True)  # Make contact email optional
-    website = models.URLField(blank=True, null=True)  # Make website optional
-    activism_focus = models.TextField(blank=True, null=True)  # Make activism focus optional
+    description = models.TextField(blank=True, null=True)
+    location = models.CharField(max_length=100, blank=True, null=True)
+    date_of_foundation = models.DateField(blank=True, null=True)
+    contact_email = models.EmailField(blank=True, null=True)
+    website = models.URLField(blank=True, null=True)
+    activism_focus = models.TextField(blank=True, null=True)
     
-    logo = models.ImageField(upload_to='organization_logos/', blank=True, null=True)  # Add logo field
+    logo = models.ImageField(upload_to='organization_logos/', blank=True, null=True)
 
     def __str__(self):
         return self.name
+
 
 
 class Membership(models.Model):
