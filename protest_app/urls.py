@@ -8,8 +8,9 @@ urlpatterns = [
     path('protests/', include('protests.urls')),
     path('organizations/', include('organizations.urls')),
     path('topics/', include('topics.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),  # This line is important for authentication URLs
     path('accounts/', include('users.urls')),  # You might have a separate app for user-related URLs
+        path('accounts/', include('django.contrib.auth.urls')),  # This line is important for authentication URLs
+
     path('', front_page, name='front_page'),
 
 ]

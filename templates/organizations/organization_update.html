@@ -1,0 +1,36 @@
+<!-- templates/organizations/organization_update.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card p-4 text-center">
+        <h2 class="mb-4">Edit Organization</h2>
+
+        <p class="text-muted">Make changes to the organization details below:</p>
+
+        <form method="post" class="needs-validation mx-auto" novalidate style="max-width: 400px;">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="id_name">Organization Name:</label><br>
+                {{ form.name }}
+                {% if form.name.errors %}
+                    <div class="invalid-feedback">{{ form.name.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_description">Description:</label><br>
+                {{ form.description }}
+                {% if form.description.errors %}
+                    <div class="invalid-feedback">{{ form.description.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <!-- Repeat for other fields -->
+
+            <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

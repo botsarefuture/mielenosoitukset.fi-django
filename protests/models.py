@@ -1,9 +1,28 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from organizations.models import Organization
 from topics.models import Topic
-from django.contrib.auth.models import User
+from django.db.models import Manager, QuerySet, ExpressionWrapper, F, DateTimeField
+from django.utils import timezone
 
-from django.db import models
+class UpcomingProtestManager(Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(date__gte=timezone.now())
+
+class Protest(models.Model):
+    title = models.CharField(max_length=255, blank=True, null=True)
+    location = models.CharField(max_length=100)
+    date = models.DateTimeField()
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
+    topics = models.ManyToManyField(Topic)
+    details = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to='demonstration_images/', blank=True, null=True)
+
+    objects = models.Manager()
+    upcoming_protests = UpcomingProtestManager()
+
+    def __str__(self):
+        return f"{self.location} - {self.date}"
 
 class Role(models.Model):
     name = models.CharField(max_length=50)
@@ -13,42 +32,13 @@ class Role(models.Model):
     def __str__(self):
         return self.name
 
-
-from django.core.exceptions import ValidationError
-from django.db import models
-from organizations.models import Organization
-from topics.models import Topic
-
-from django.db import models
-from django.conf import settings
-from organizations.models import Organization
-from topics.models import Topic
-
-class Protest(models.Model):
-    title = models.CharField(max_length=255, null=True)
-
-    location = models.CharField(max_length=100)
-    date = models.DateField()
-    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
-    topics = models.ManyToManyField(Topic)
-    details = models.TextField()  # Add details for the protest/demonstration
-    image = models.ImageField(upload_to='demonstration_images/', null=True)  # Adjust the upload path as needed
-
-    # Add more fields as needed
-
-    def __str__(self):
-        return f"{self.location} - {self.date}"
-
-
 class Participant(models.Model):
     email = models.EmailField()
     name = models.CharField(max_length=100)
     role = models.ForeignKey('Role', on_delete=models.CASCADE)
     protest = models.ForeignKey(Protest, on_delete=models.CASCADE)
-    # Add more fields as needed
 
     def clean(self):
-        # Custom validation logic
         incompatible_roles = self.role.incompatible_roles.all()
 
         for incompatible_role in incompatible_roles:

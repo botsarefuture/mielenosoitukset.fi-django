@@ -11,7 +11,9 @@
             <div class="col-md-4 mb-4">
                 <a href="{% url 'protest_detail' demonstration.id %}">
                     <div class="card">
+                        {% if demonstration.image %}
                         <img src="{{ demonstration.image.url }}" class="card-img-top" alt="{{ demonstration.title }}">
+                        {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ demonstration.title }}</h5>
                             <p class="card-text">{{ demonstration.description }}</p>

@@ -20,16 +20,6 @@ class CustomUser(AbstractUser):
     role = models.CharField(max_length=20, choices=USER_ROLES, default='member')
     organization = models.OneToOneField(Organization, on_delete=models.SET_NULL, null=True, blank=True)
 
-    # Remove the organizations field since a user can only belong to one organization
-    # organizations = models.ManyToManyField(
-    #     Organization,
-    #     verbose_name='organizations',
-    #     blank=True,
-    #     help_text='The organizations this user belongs to.',
-    #     related_name='customuser_organizations_set',
-    #     related_query_name='user',
-    # )
-
     # Provide a unique related_name for the groups field
     groups = models.ManyToManyField(
         'auth.Group',
@@ -52,3 +42,5 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+    
+    

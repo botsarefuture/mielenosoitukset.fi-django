@@ -1,8 +1,5 @@
 from django.db import models
 
-# topics/models.py
-from django.db import models
-
 class Topic(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
@@ -12,4 +9,3 @@ class Topic(models.Model):
 
     def get_demonstrations(self):
         return self.protest_set.all()
-

@@ -22,8 +22,8 @@ from .forms import ProtestForm
 
 def create_protest(request):
     if request.method == 'POST':
-        form = ProtestForm(request.user, request.POST)
-        if form.is_valid():
+        form = ProtestForm(request.user, request.POST, request.FILES)
+        if form.is_bound and form.is_valid():
             # Save the form with the current user as the organizer
             protest = form.save(commit=False)
             protest.save()
@@ -33,6 +33,7 @@ def create_protest(request):
 
     return render(request, 'create_protest.html', {'form': form})
 
+
 def edit_protest(request, pk):
     protest = get_object_or_404(Protest, pk=pk)
     if request.method == 'POST':
@@ -40,9 +41,8 @@ def edit_protest(request, pk):
         if form.is_valid():
             # Save the form with the current user as the organizer
             protest = form.save(commit=False)
-            protest.organizers.add(request.user.organization)  # Assuming the user has an organization attribute
             protest.save()
-            return redirect('protest_detail', pk=protest.pk)
+            return redirect('protest_detail', protest_id=protest.pk)
     else:
         form = ProtestForm(request.user, instance=protest)
 
@@ -52,5 +52,5 @@ def edit_protest(request, pk):
 from django.shortcuts import render
 
 def front_page(request):
-    demonstrations = Protest.objects.all()
+    demonstrations = Protest.upcoming_protests.all()
     return render(request, 'front_page.html', {'demonstrations': demonstrations})

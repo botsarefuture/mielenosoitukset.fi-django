@@ -1,10 +1,65 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Create/Edit Protest</h2>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save changes</button>
-  </form>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4">Edit Protest</h2>
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form.non_field_errors }}
+              
+              <div class="form-group text-center">
+                <label for="{{ form.title.id_for_label }}">Title:</label><br>
+                {{ form.title }}
+                {{ form.title.errors }}
+              </div>
+
+              <div class="form-group text-center">
+                <label for="{{ form.location.id_for_label }}">Location:</label><br>
+                {{ form.location }}
+                {{ form.location.errors }}
+              </div>
+
+              <div class="form-group text-center">
+                <label for="{{ form.date.id_for_label }}">Date:</label><br>
+                {{ form.date }}
+                {{ form.date.errors }}
+              </div>
+
+              <div class="form-group text-center">
+                <label for="{{ form.organization.id_for_label }}">Organization:</label><br>
+                {{ form.organization }}
+                {{ form.organization.errors }}
+              </div>
+
+              <div class="form-group text-center">
+                <label for="{{ form.topics.id_for_label }}">Topics:</label><br>
+                {{ form.topics }}
+                {{ form.topics.errors }}
+              </div>
+
+              <div class="form-group text-center">
+                <label for="{{ form.details.id_for_label }}">Details:</label><br>
+                {{ form.details }}
+                {{ form.details.errors }}
+              </div>
+
+              <div class="form-group text-center">
+                <label for="{{ form.image.id_for_label }}">Image:</label><br>
+                {{ form.image }}
+                {{ form.image.errors }}
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

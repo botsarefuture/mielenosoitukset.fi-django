@@ -6,12 +6,12 @@
 
 {% block content %}
     <div class="container">
-        <h1 class="mt-4 mb-4">Protest List</h1>
+        <h1 class="mt-4 mb-4 text-center">Protest List</h1>
         {% for protest in protests %}
             <div class="card mb-3">
                 <div class="card-body">
                     <h2 class="card-title">
-                        <a href="{% url 'protest_detail' protest.id %}">{{ protest.location }} - {{ protest.date }}</a>
+                        <a href="{% url 'protest_detail' protest.id %}">{{ protest.title }} - {{ protest.date }}</a>
                     </h2>
                     <p class="card-text">Organization: {{ protest.organization.name }}</p>
                     <p class="card-text">Topics: 

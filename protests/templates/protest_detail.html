@@ -1,10 +1,48 @@
-<!-- Updated protests/templates/protests/protest_detail.html with links to organization and topics -->
-
 {% extends 'base.html' %}
 
 {% block title %}{{ protest.location }} - Protest{% endblock %}
 
 {% block content %}
+    <style>
+        .toolbox {
+            background-color: #3498db;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .toolbox-link {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .organization-details {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+
+    <!-- Toolbox Section -->
+    <div class="container toolbox">
+        {% if user.is_superuser %}
+            <!-- Toolbox for superuser -->
+            <a href="#" class="toolbox-link" title="Option 1">
+                <i class="fas fa-cog"></i>
+            </a>
+            <a href="#" class="toolbox-link" title="Option 2">
+                <i class="fas fa-tools"></i>
+            </a>
+            <a href="{% url 'edit_protest' protest.id %}" class="btn btn-warning">
+                <i class="fas fa-edit"></i> Edit Protest
+            </a>
+            
+        {% endif %}
+    </div>
+
+    <!-- Main Content -->
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -23,7 +61,20 @@
                                 </a>
                             {% endfor %}
                         </p>
-                        <!-- Add more details as needed -->
+                        <p class="card-text">Details: {{ protest.details }}</p>
+                        <p class="card-text">Image: 
+                            {% if protest.image %}
+                                <img src="{{ protest.image.url }}" alt="{{ protest.location }} Image" class="img-fluid">
+                            {% else %}
+                                No image available
+                            {% endif %}
+                        </p>
+                        <!-- Google Maps Embed API -->
+                        <div class="map-container">
+                            <iframe width="100%" height="300" frameborder="0" style="border:0"
+                                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyC-LbBEvDRjeHnjXkIZF8J8TVFS7FY_WUc
+                                &q={{ protest.location }}" allowfullscreen></iframe>
+                        </div>
                     </div>
                 </div>
             </div>

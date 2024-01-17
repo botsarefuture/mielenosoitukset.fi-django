@@ -1,6 +1,7 @@
+# users/forms.py
 from django import forms
-from django.contrib.auth.forms import UserChangeForm
-from .models import CustomUser  # Adjust the import based on your actual UserProfile model
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm, UserCreationForm
+from .models import CustomUser
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
@@ -11,20 +12,11 @@ class CustomUserChangeForm(UserChangeForm):
         super().__init__(*args, **kwargs)
         self.fields.pop('password', None)  # Exclude the 'password' field
 
-from django import forms
-from django.contrib.auth.forms import PasswordChangeForm
-
 class ChangePasswordForm(PasswordChangeForm):
     class Meta:
-        model = CustomUser  # Adjust the import based on your actual UserProfile model
-
-# users/forms.py
-from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser
+        model = CustomUser
 
 class CustomUserCreationForm(UserCreationForm):
-
     class Meta(UserCreationForm.Meta):
         fields = ["email"]
-
         model = CustomUser

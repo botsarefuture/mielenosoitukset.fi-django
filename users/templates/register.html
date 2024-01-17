@@ -1,11 +1,44 @@
-<!-- templates/registration/register.html -->
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Register</h2>
-    <form method="post" action="{% url 'register' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body text-center"> <!-- Center the content -->
+            <h2 class="card-title mb-4">Register</h2>
+            <form method="post" action="{% url 'register' %}">
+              {% csrf_token %}
+              
+              <!-- Email Field -->
+              <div class="form-group">
+                {{ form.email.label_tag }}
+                <br>
+                {{ form.email }}
+                <small class="form-text text-muted">Enter your email address.</small>
+              </div>
+              
+              <!-- Password1 Field -->
+              <div class="form-group">
+                {{ form.password1.label_tag }}
+                <br>
+                {{ form.password1 }}
+                <small class="form-text text-muted">Enter your password.</small>
+              </div>
+
+              <!-- Password2 Field -->
+              <div class="form-group">
+                {{ form.password2.label_tag }}
+                <br>
+                {{ form.password2 }}
+                <small class="form-text text-muted">Repeat your password.</small>
+              </div>
+
+              <button type="submit" class="btn btn-primary mt-3">Register</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
