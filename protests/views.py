@@ -29,7 +29,7 @@ def create_protest(request):
     else:
         form = ProtestForm(request.user)
 
-    return render(request, "create_protest.html", {"form": form})
+    return render(request, "create_protest.html", {"form": form, "your_google_maps_api_key": "AIzaSyC-LbBEvDRjeHnjXkIZF8J8TVFS7FY_WUc"})
 
 
 def edit_protest(request, pk):
