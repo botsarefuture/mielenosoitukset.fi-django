@@ -1,12 +1,17 @@
 # users/views.py
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash
+from typing import Dict
+
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 from django.urls import reverse
+
 from organizations.models import Membership
 from .forms import CustomUserCreationForm, CustomUserChangeForm, ChangePasswordForm
+from users.models import CustomUser  # Replace with the actual import path for your CustomUser model
+
 
 def register(request):
     if request.method == 'POST':
@@ -17,10 +22,9 @@ def register(request):
     else:
         form = CustomUserCreationForm()
 
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'users/register.html', {'form': form})
 
-from users.models import CustomUser  # Replace with the actual import path for your CustomUser model
-from typing import Dict
+
 
 def get_user_organizations_access(user_id: int) -> Dict[str, str]:
     try:
@@ -32,17 +36,6 @@ def get_user_organizations_access(user_id: int) -> Dict[str, str]:
         
         return user_memberships
 
-        # Create a dictionary to store organization names and access levels
-        organizations_access = {}
-
-        # Iterate through user memberships to get organization names and access levels
-        for membership in user_memberships:
-            organization_name = membership.organization.name
-            access_level = membership.get_access_level_display()  # Get the display value of the access level
-            organizations_access[organization_name] = access_level
-
-        return organizations_access
-
     except CustomUser.DoesNotExist:
         # Handle the case where the user does not exist
         return {}
@@ -52,7 +45,7 @@ def get_user_organizations_access(user_id: int) -> Dict[str, str]:
 
 @login_required
 def profile(request):
-    return render(request, 'profile.html', context={"info": get_user_organizations_access(request.user.id)})
+    return render(request, 'users/profile.html', context={"info": get_user_organizations_access(request.user.id)})
 
 @login_required
 def profile_edit(request):
@@ -64,7 +57,7 @@ def profile_edit(request):
     else:
         form = CustomUserChangeForm(instance=request.user)
 
-    return render(request, 'profile_edit.html', {'form': form})
+    return render(request, 'users/profile_edit.html', {'form': form})
 
 @login_required
 def change_password(request):
@@ -80,14 +73,11 @@ def change_password(request):
     else:
         form = ChangePasswordForm(request.user)
 
-    return render(request, 'change_password.html', {'form': form})
+    return render(request, 'users/change_password.html', {'form': form})
 
 @login_required
 def password_change_done(request):
-    return render(request, 'password_change_done.html')
-
-from django.contrib.auth import logout
-from django.shortcuts import redirect
+    return render(request, 'users/password_change_done.html')
 
 def custom_logout(request):
     # Store the current URL in the session
