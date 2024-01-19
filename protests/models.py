@@ -25,6 +25,10 @@ class Protest(models.Model):
     
     def get_absolute_url(self):
         return reverse('protest_detail', args=[str(self.id)])
+    
+    def save(self, *args, **kwargs):
+        super(Protest, self).save(*args, **kwargs) 
+        return self
 
     def __str__(self):
         return f"{self.location} - {self.date}"

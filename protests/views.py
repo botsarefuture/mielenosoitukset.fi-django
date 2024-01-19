@@ -21,10 +21,9 @@ def protest_detail(request, protest_id):
 def create_protest(request):
     if request.method == "POST":
         form = ProtestForm(request.user, request.POST, request.FILES)
-        if form.is_bound and form.is_valid():
+        if form.is_valid():
             # Save the form with the current user as the organizer
-            protest = form.save(commit=False)
-            protest.save()
+            protest = form.save()
             return redirect("protest_detail", protest_id=protest.pk)
     else:
         form = ProtestForm(request.user)
@@ -38,8 +37,8 @@ def edit_protest(request, pk):
         form = ProtestForm(request.user, request.POST, instance=protest)
         if form.is_valid():
             # Save the form with the current user as the organizer
-            protest = form.save(commit=False)
-            protest.save()
+            protest = form.save()
+
             return redirect("protest_detail", protest_id=protest.pk)
     else:
         form = ProtestForm(request.user, instance=protest)
