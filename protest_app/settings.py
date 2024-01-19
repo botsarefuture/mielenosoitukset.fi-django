@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-cec9)=loxjm)jp!c6*gr!zr&-%(63gr969%1-*gr@+!i8@)bdq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["mielenosoitukset.luova.club"]
 
 
 # Application definition
