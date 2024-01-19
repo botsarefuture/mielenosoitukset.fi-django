@@ -5,6 +5,7 @@ from organizations.models import Organization
 
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
+    username = models.CharField(max_length=150, unique=True)  # Added username field
 
     objects = CustomUserManager()
 
@@ -39,5 +40,3 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
-    
-    
