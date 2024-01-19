@@ -6,9 +6,6 @@ from organizations.models import Organization
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
-
     objects = CustomUserManager()
 
     USER_ROLES = [
