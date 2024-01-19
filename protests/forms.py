@@ -4,6 +4,13 @@ from organizations.models import Organization, Membership
 from django.contrib.auth import get_user_model
 
 class ProtestForm(forms.ModelForm):
+    date = forms.DateTimeField(
+        label='Date and Time:',
+        widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        input_formats=['%Y-%m-%dT%H:%M'],  # Adjust the format as needed
+        help_text='Format: YYYY-MM-DDTHH:MM'
+    )
+
     class Meta:
         model = Protest
         fields = ['title', 'location', 'date', 'organization', 'topics', 'details', 'image']

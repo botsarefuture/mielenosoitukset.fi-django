@@ -1,65 +1,64 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Protest, Participant
+from .forms import ProtestForm
+
 
 def protest_list(request):
     protests = Protest.objects.all()
-    return render(request, 'protest_list.html', {'protests': protests})
+    return render(request, "protest_list.html", {"protests": protests})
+
 
 def participant_list(request):
     participants = Participant.objects.all()
-    return render(request, 'participant_list.html', {'participants': participants})
+    return render(request, "participant_list.html", {"participants": participants})
 
-# protests/views.py
-from django.shortcuts import render, get_object_or_404
-from .models import Protest
 
 def protest_detail(request, protest_id):
     protest = get_object_or_404(Protest, pk=protest_id)
-    return render(request, 'protest_detail.html', {'protest': protest})
+    return render(request, "protest_detail.html", {"protest": protest})
 
-from django.shortcuts import render, redirect
-from .forms import ProtestForm
 
 def create_protest(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ProtestForm(request.user, request.POST, request.FILES)
         if form.is_bound and form.is_valid():
             # Save the form with the current user as the organizer
             protest = form.save(commit=False)
             protest.save()
-            return redirect('protest_detail', protest_id=protest.pk)
+            return redirect("protest_detail", protest_id=protest.pk)
     else:
         form = ProtestForm(request.user)
 
-    return render(request, 'create_protest.html', {'form': form})
+    return render(request, "create_protest.html", {"form": form, "your_google_maps_api_key": "AIzaSyC-LbBEvDRjeHnjXkIZF8J8TVFS7FY_WUc"})
 
 
 def edit_protest(request, pk):
     protest = get_object_or_404(Protest, pk=pk)
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ProtestForm(request.user, request.POST, instance=protest)
         if form.is_valid():
             # Save the form with the current user as the organizer
             protest = form.save(commit=False)
             protest.save()
-            return redirect('protest_detail', protest_id=protest.pk)
+            return redirect("protest_detail", protest_id=protest.pk)
     else:
         form = ProtestForm(request.user, instance=protest)
 
-    return render(request, 'edit_protest.html', {'form': form, 'protest': protest})
+    return render(request, "edit_protest.html", {"form": form, "protest": protest})
 
-# protests/views.py
-from django.shortcuts import render
 
 def front_page(request):
     demonstrations = Protest.upcoming_protests.all()
-    return render(request, 'front_page.html', {'demonstrations': demonstrations})
+    return render(request, "front_page.html", {"demonstrations": demonstrations})
+
 
 def delete_protest(request, pk):
     protest = get_object_or_404(Protest, pk=pk)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         protest.delete()
-        return redirect('protest_list')  # Redirect to the list of protests after deletion
+        return redirect(
+            "protest_list"
+        )  # Redirect to the list of protests after deletion
 
-    return render(request, 'delete_protest.html', {'protest': protest})
+    return render(request, "delete_protest.html", {"protest": protest})
