@@ -18,5 +18,12 @@ class ChangePasswordForm(PasswordChangeForm):
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
-        fields = ["email"]
         model = CustomUser
+        fields = ["email"]  # Specify the fields you want for user creation
+        # You can add more fields as needed
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'placeholder': 'Enter your username'})
+        self.fields['username'].label = 'Username'
+        self.fields['username'].help_text = 'Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'
