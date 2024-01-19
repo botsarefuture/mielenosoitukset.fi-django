@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["mielenosoitukset.luova.club"]
 
-CSRF_TRUSTED_ORIGINS = f"https://{ALLOWED_HOSTS[0]}"
+CSRF_TRUSTED_ORIGINS = [f"https://{ALLOWED_HOSTS[0]}"]
 
 # Application definition
 
