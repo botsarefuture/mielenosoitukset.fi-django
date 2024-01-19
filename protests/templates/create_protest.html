@@ -1,84 +1,70 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <html lang="en">
-    <head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        
-        <title>AutoComplete</title>
-    </head>
-
-    <body>
         <div class="container mt-5">
-          <div class="row justify-content-center">
-              <div class="col-md-8">
-                  <div class="card">
-                      <div class="card-body">
-                          <h2 class="card-title text-center mb-4">Initiate Protest</h2>
-                          <form method="post" enctype="multipart/form-data">
-                              {% csrf_token %}
-                              {{ form.non_field_errors }}
-      
-                              <div class="form-group text-center">
-                                  <label for="{{ form.title.id_for_label }}" class="font-weight-bold">Title:</label><br>
-                                  {{ form.title }}
-                                  {{ form.title.errors }}
-                              </div>
-      
-                              <div class="form-group text-center">
-                                  <label for="{{ form.address.id_for_label }}" class="font-weight-bold">Address:</label><br>
-                                  <input type="text" id="{{ form.address.id_for_label }}" name="{{ form.address.name }}" class="form-control" data-pg-address-line1 />
-                                  <div class="error" data-pg-address-line1-message></div>
-                                  <input type="hidden" id="country" data-pg-country hidden value="FINLAND" />
-                              </div>
-      
-                              <div class="form-group text-center">
-                                  <label for="{{ form.date.id_for_label }}" class="font-weight-bold">Date:</label><br>
-                                  {{ form.date }}
-                                  {{ form.date.errors }}
-                              </div>
-      
-                              <div class="form-group text-center">
-                                  <label for="{{ form.organization.id_for_label }}" class="font-weight-bold">Organization:</label><br>
-                                  {{ form.organization }}
-                                  {{ form.organization.errors }}
-                              </div>
-      
-                              <div class="form-group text-center">
-                                  <label for="{{ form.topics.id_for_label }}" class="font-weight-bold">Topics:</label><br>
-                                  <select class="form-control" id="{{ form.topics.id_for_label }}" name="{{ form.topics.name }}" multiple>
-                                      {% for topic in form.topics %}
-                                      {{topic}}
-                                      {% endfor %}
-                                  </select>
-                                  {{ form.topics.errors }}
-                              </div>
-      
-                              <div class="form-group text-center">
-                                  <label for="{{ form.details.id_for_label }}" class="font-weight-bold">Details:</label><br>
-                                  {{ form.details }}
-                                  {{ form.details.errors }}
-                              </div>
-      
-                              <div class="form-group text-center">
-                                  <label for="{{ form.image.id_for_label }}" class="font-weight-bold">Image:</label><br>
-                                  {{ form.image }}
-                                  {{ form.image.errors }}
-                              </div>
-      
-                              <div class="text-center mt-4">
-                                  <button type="submit" class="btn btn-primary btn-lg">Initiate Protest</button>
-                              </div>
-                          </form>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  
-    </body>
-  </html>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title text-center mb-4">Initiate Protest</h2>
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form.non_field_errors }}
+
+                                <div class="form-group text-center">
+                                    <label for="{{ form.title.id_for_label }}" class="font-weight-bold">Title:</label><br>
+                                    {{ form.title }}
+                                    {{ form.title.errors }}
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <label for="{{ form.address.id_for_label }}" class="font-weight-bold">Address:</label><br>
+                                    <input type="text" id="{{ form.address.id_for_label }}" name="{{ form.address.name }}" class="form-control" data-pg-address-line1 />
+                                    <div class="error" data-pg-address-line1-message></div>
+                                    <input type="hidden" id="country" data-pg-country hidden value="FINLAND" />
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <label for="{{ form.date.id_for_label }}" class="font-weight-bold">Date:</label><br>
+                                    {{ form.date }}
+                                    {{ form.date.errors }}
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <label for="{{ form.organization.id_for_label }}" class="font-weight-bold">Organization:</label><br>
+                                    {{ form.organization }}
+                                    {{ form.organization.errors }}
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <label for="{{ form.topics.id_for_label }}" class="font-weight-bold">Topics:</label><br>
+                                    <select class="form-control" id="{{ form.topics.id_for_label }}" name="{{ form.topics.name }}" multiple>
+                                        {% for topic in form.topics %}
+                                            <option value="{{ topic }}">{{ topic }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    {{ form.topics.errors }}
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <label for="{{ form.details.id_for_label }}" class="font-weight-bold">Details:</label><br>
+                                    {{ form.details }}
+                                    {{ form.details.errors }}
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <label for="{{ form.image.id_for_label }}" class="font-weight-bold">Image:</label><br>
+                                    {{ form.image }}
+                                    {{ form.image.errors }}
+                                </div>
+
+                                <div class="text-center mt-4">
+                                    <button type="submit" class="btn btn-primary btn-lg">Initiate Protest</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 {% endblock %}
