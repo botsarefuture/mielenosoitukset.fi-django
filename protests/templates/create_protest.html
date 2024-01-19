@@ -18,7 +18,7 @@
                   <div class="card">
                       <div class="card-body">
                           <h2 class="card-title text-center mb-4">Initiate Protest</h2>
-                          <form method="post" enctype="multipart/form-data" data-pg-verify>
+                          <form method="post" enctype="multipart/form-data">
                               {% csrf_token %}
                               {{ form.non_field_errors }}
       
@@ -78,7 +78,6 @@
               </div>
           </div>
       </div>
-      <script src="https://scripts.postgrid.com/autocomplete.min.js" data-pg-international="true" data-pg-key="live_pk_vKUZZueePamjGXhcRhRdW8"></script>
   
     </body>
   </html>
