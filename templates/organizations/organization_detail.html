@@ -56,7 +56,7 @@
     <div class="col-md-8">
 
       <!-- Toolbox Section -->
-      {% if user.is_superuser %}
+      {% if user_can_edit_organization %}
         <div class="toolbox">
           {% if user_can_edit_organization %}
             <a href="{% url 'organization_update' organization.id %}" class="btn btn-warning">
