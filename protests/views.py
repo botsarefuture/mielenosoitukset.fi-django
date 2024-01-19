@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Protest, Participant
 from .forms import ProtestForm
+from organizations.models import Organization, Membership
 
 
 def protest_list(request):
@@ -12,10 +13,24 @@ def participant_list(request):
     participants = Participant.objects.all()
     return render(request, "participant_list.html", {"participants": participants})
 
+def user_can_edit_organization(user, organization_id):
+    if not user.is_authenticated:
+        return False
+
+    if user.is_superuser:
+        return True
+
+    user_instance = user
+    organization_instance = get_object_or_404(Organization, id=organization_id)
+
+    relationship_exists = Membership.objects.filter(user=user_instance, organization=organization_instance).exists()
+
+    return relationship_exists
+
 
 def protest_detail(request, protest_id):
     protest = get_object_or_404(Protest, pk=protest_id)
-    return render(request, "protest_detail.html", {"protest": protest})
+    return render(request, "protest_detail.html", {"protest": protest, 'can_edit': user_can_edit_organization(request.user, protest.organization.id)})
 
 
 def create_protest(request):

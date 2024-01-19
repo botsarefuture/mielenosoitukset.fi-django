@@ -47,7 +47,7 @@
 
     <!-- Toolbox Section -->
     <div class="container toolbox">
-        {% if user.is_superuser %}
+        {% if can_edit %}
             <!-- Toolbox for superuser -->
             <a href="#" class="toolbox-link" title="Option 1">
                 <i class="fas fa-cog"></i>
