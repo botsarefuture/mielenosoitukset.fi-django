@@ -10,6 +10,14 @@
             <form method="post" action="{% url 'register' %}">
               {% csrf_token %}
               
+              <!-- Username Field -->
+              <div class="form-group">
+                {{ form.username.label_tag }}
+                <br>
+                {{ form.username }}
+                <small class="form-text text-muted">Choose a unique username.</small>
+              </div>
+              
               <!-- Email Field -->
               <div class="form-group">
                 {{ form.email.label_tag }}
