@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["mielenosoitukset.luova.club"]
 
+CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
 
 # Application definition
 
