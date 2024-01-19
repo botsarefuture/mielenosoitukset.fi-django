@@ -40,7 +40,7 @@
                                     <label for="{{ form.topics.id_for_label }}" class="font-weight-bold">Topics:</label><br>
                                     <select class="form-control" id="{{ form.topics.id_for_label }}" name="{{ form.topics.name }}" multiple>
                                         {% for topic in form.topics %}
-                                            <option value="{{ topic }}">{{ topic }}</option>
+                                            {{ topic }}
                                         {% endfor %}
                                     </select>
                                     {{ form.topics.errors }}
