@@ -19,7 +19,7 @@ class ChangePasswordForm(PasswordChangeForm):
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ["email"]  # Specify the fields you want for user creation
+        fields = ["email", "username"]  # Specify the fields you want for user creation
         # You can add more fields as needed
 
     def __init__(self, *args, **kwargs):
