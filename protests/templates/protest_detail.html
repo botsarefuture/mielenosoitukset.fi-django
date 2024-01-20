@@ -1,107 +1,91 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block title %}{{ protest.location }} - Protest{%endblock %} {% block content %}
+{% load static %}
 
-{% block title %}{{ protest.location }} - Protest{% endblock %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/toolbox.css' %}">
+<style>
+  .organization-details {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+  }
 
-{% block content %}
-    <style>
-        .toolbox {
-            background-color: #3498db;
-            padding: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+  .protest-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
 
-        .toolbox-link {
-            color: #fff;
-            margin: 0 10px;
-            text-decoration: none;
-            font-weight: bold;
-        }
+  .card-subtitle {
+    font-size: 1.2rem;
+    color: #6c757d;
+  }
 
-        .organization-details {
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 8px;
-        }
+  .card-text {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
 
-        .protest-title {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
+  .map-container {
+    margin-top: 20px;
+  }
+</style>
 
-        .card-subtitle {
-            font-size: 1.2rem;
-            color: #6c757d;
-        }
-
-        .card-text {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-        }
-
-        .map-container {
-            margin-top: 20px;
-        }
-    </style>
-
-    <!-- Toolbox Section -->
-    <div class="container toolbox">
-        {% if can_edit %}
-            <!-- Toolbox for superuser -->
-            <a href="#" class="toolbox-link" title="Option 1">
-                <i class="fas fa-cog"></i>
+<!-- Toolbox Section -->
+{% if can_edit %}
+<div class="toolbox">
+  <a href="{% url 'edit_protest' protest.id %}" class="btn btn-warning">
+    <i class="fas fa-edit"></i> Edit Protest
+  </a>
+  <a href="{% url 'delete_protest' pk=protest.id %}"
+    class="btn btn-danger"
+    onclick="return confirm('Are you sure you want to delete this protest?');"><i class="fas fa-trash"></i> Delete Protest</a>
+</div>
+  {% endif %}
+<!-- Main Content -->
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h1 class="protest-title">{{ protest.location }} - {{ protest.date }}</h1>
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">
+            Organization:
+            <a href="{% url 'organization_detail' protest.organization.id %}">
+              {{ protest.organization.name }}
             </a>
-            <a href="#" class="toolbox-link" title="Option 2">
-                <i class="fas fa-tools"></i>
+          </h5>
+          <p class="card-subtitle">
+            Topics: {% for topic in protest.topics.all %}
+            <a href="{% url 'topic_detail' topic.id %}">
+              <span class="badge badge-primary">{{ topic.name }}</span>
             </a>
-            <a href="{% url 'edit_protest' protest.id %}" class="btn btn-warning">
-                <i class="fas fa-edit"></i> Edit Protest
-            </a>
-            
-            <!-- Add the delete option -->
-            <a href="{% url 'delete_protest' pk=protest.id %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this protest?');">
-                <i class="fas fa-trash"></i> Delete Protest
-            </a>
-        {% endif %}
-    </div>
-
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <h1 class="protest-title">{{ protest.location }} - {{ protest.date }}</h1>
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Organization: 
-                            <a href="{% url 'organization_detail' protest.organization.id %}">
-                                {{ protest.organization.name }}
-                            </a>
-                        </h5>
-                        <p class="card-subtitle">Topics: 
-                            {% for topic in protest.topics.all %}
-                                <a href="{% url 'topic_detail' topic.id %}">
-                                    <span class="badge badge-primary">{{ topic.name }}</span>
-                                </a>
-                            {% endfor %}
-                        </p>
-                        <p class="card-text">Details: {{ protest.details }}</p>
-                        <p class="card-text">Image: 
-                            {% if protest.image %}
-                                <img src="{{ protest.image.url }}" alt="{{ protest.location }} Image" class="img-fluid">
-                            {% else %}
-                                No image available
-                            {% endif %}
-                        </p>
-                        <!-- Google Maps Embed API -->
-                        <div class="map-container">
-                            <iframe width="100%" height="300" frameborder="0" style="border:0"
-                                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyC-LbBEvDRjeHnjXkIZF8J8TVFS7FY_WUc
-                                &q={{ protest.location }}" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
+          </p>
+          <p class="card-text">Details: {{ protest.details }}</p>
+          <p class="card-text">
+            Image: {% if protest.image %}
+            <img
+              src="{{ protest.image.url }}"
+              alt="{{ protest.location }} Image"
+              class="img-fluid"
+            />
+            {% else %} No image available {% endif %}
+          </p>
+          <!-- Google Maps Embed API -->
+          <div class="map-container">
+            <iframe
+              width="100%"
+              height="300"
+              frameborder="0"
+              style="border: 0"
+              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyC-LbBEvDRjeHnjXkIZF8J8TVFS7FY_WUc
+                                &q={{ protest.location }}"
+              allowfullscreen
+            ></iframe>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+</div>
 {% endblock %}

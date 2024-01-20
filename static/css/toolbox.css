@@ -1,0 +1,18 @@
+/* toolbox.css */
+
+/* Font Awesome Import */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+.toolbox {
+  background-color: #3498db;
+  padding: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.toolbox-link {
+  color: #fff;
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
