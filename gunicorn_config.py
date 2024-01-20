@@ -1,8 +1,7 @@
-# Serve static files directly by Gunicorn in production
-from whitenoise import WhiteNoise
-from protest_app.wsgi import application  # Replace 'your_project_name' with your actual project name
+import multiprocessing
+from protest_app.wsgi import application
 
-application = WhiteNoise(application, root='/static/')
+# Calculate the number of workers based on CPU cores
+workers = multiprocessing.cpu_count() * 2 + 1  # You can adjust the multiplier based on your needs
 
-workers = 3  # Adjust the number of workers based on your server's capabilities
 bind = "0.0.0.0:8000"
