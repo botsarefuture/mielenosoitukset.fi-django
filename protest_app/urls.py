@@ -7,25 +7,24 @@ from django.contrib.sitemaps.views import sitemap
 from organizations.sitemap import OrganizationSitemap
 from protests.sitemaps import ProtestSitemap  # Import the ProtestSitemap
 
-sitemaps = {
-    'organizations': OrganizationSitemap,
-    'protests': ProtestSitemap
-}
+sitemaps = {"organizations": OrganizationSitemap, "protests": ProtestSitemap}
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('protests/', include('protests.urls')),
-    path('organizations/', include('organizations.urls')),
-    path('topics/', include('topics.urls')),
-    
+    path("admin/", admin.site.urls),
+    path("protests/", include("protests.urls")),
+    path("organizations/", include("organizations.urls")),
+    path("topics/", include("topics.urls")),
     # User-related URLs
-    path('accounts/', include('users.urls')), 
-    path('accounts/', include('django.contrib.auth.urls')),  # Authentication URLs
-    
-    path('', front_page, name='front_page'),
-
+    path("accounts/", include("users.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),  # Authentication URLs
+    path("", front_page, name="front_page"),
     # Sitemap
-    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
 ]
 
 # Serve media files during development

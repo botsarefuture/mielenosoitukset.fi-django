@@ -6,26 +6,34 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('protests', '0001_initial'),
+        ("protests", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Demonstration',
+            name="Demonstration",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('description', models.TextField()),
-                ('date', models.DateField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("description", models.TextField()),
+                ("date", models.DateField()),
             ],
         ),
         migrations.AddField(
-            model_name='protest',
-            name='image',
-            field=models.ImageField(null=True, upload_to='demonstration_images/'),
+            model_name="protest",
+            name="image",
+            field=models.ImageField(null=True, upload_to="demonstration_images/"),
         ),
         migrations.AddField(
-            model_name='protest',
-            name='title',
+            model_name="protest",
+            name="title",
             field=models.CharField(max_length=255, null=True),
         ),
     ]

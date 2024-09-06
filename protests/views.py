@@ -13,6 +13,7 @@ def participant_list(request):
     participants = Participant.objects.all()
     return render(request, "participant_list.html", {"participants": participants})
 
+
 def user_can_edit_organization(user, organization_id):
     if not user.is_authenticated:
         return False
@@ -23,14 +24,25 @@ def user_can_edit_organization(user, organization_id):
     user_instance = user
     organization_instance = get_object_or_404(Organization, id=organization_id)
 
-    relationship_exists = Membership.objects.filter(user=user_instance, organization=organization_instance).exists()
+    relationship_exists = Membership.objects.filter(
+        user=user_instance, organization=organization_instance
+    ).exists()
 
     return relationship_exists
 
 
 def protest_detail(request, protest_id):
     protest = get_object_or_404(Protest, pk=protest_id)
-    return render(request, "protest_detail.html", {"protest": protest, 'can_edit': user_can_edit_organization(request.user, protest.organization.id)})
+    return render(
+        request,
+        "protest_detail.html",
+        {
+            "protest": protest,
+            "can_edit": user_can_edit_organization(
+                request.user, protest.organization.id
+            ),
+        },
+    )
 
 
 def create_protest(request):
@@ -43,7 +55,14 @@ def create_protest(request):
     else:
         form = ProtestForm(request.user)
 
-    return render(request, "create_protest.html", {"form": form, "your_google_maps_api_key": "AIzaSyC-LbBEvDRjeHnjXkIZF8J8TVFS7FY_WUc"})
+    return render(
+        request,
+        "create_protest.html",
+        {
+            "form": form,
+            "your_google_maps_api_key": "AIzaSyC-LbBEvDRjeHnjXkIZF8J8TVFS7FY_WUc",
+        },
+    )
 
 
 def edit_protest(request, pk):

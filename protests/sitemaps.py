@@ -1,8 +1,9 @@
 from django.contrib.sitemaps import Sitemap
 from .models import Protest
 
+
 class ProtestSitemap(Sitemap):
-    changefreq = 'monthly'
+    changefreq = "monthly"
     priority = 0.6
 
     def items(self):
@@ -10,4 +11,3 @@ class ProtestSitemap(Sitemap):
 
     def lastmod(self, obj):
         return obj.date
-
