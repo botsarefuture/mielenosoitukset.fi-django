@@ -10,19 +10,25 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('organizations', '0001_initial'),
+        ("organizations", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='membership',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="membership",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddField(
-            model_name='membership',
-            name='organization',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='memberships', to='organizations.organization'),
+            model_name="membership",
+            name="organization",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="memberships",
+                to="organizations.organization",
+            ),
         ),
     ]

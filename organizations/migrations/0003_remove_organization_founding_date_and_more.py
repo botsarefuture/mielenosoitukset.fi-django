@@ -6,47 +6,49 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('organizations', '0002_initial'),
+        ("organizations", "0002_initial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='organization',
-            name='founding_date',
+            model_name="organization",
+            name="founding_date",
         ),
         migrations.AddField(
-            model_name='organization',
-            name='activism_focus',
+            model_name="organization",
+            name="activism_focus",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='organization',
-            name='contact_email',
+            model_name="organization",
+            name="contact_email",
             field=models.EmailField(blank=True, max_length=254, null=True),
         ),
         migrations.AddField(
-            model_name='organization',
-            name='date_of_foundation',
+            model_name="organization",
+            name="date_of_foundation",
             field=models.DateField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='organization',
-            name='location',
+            model_name="organization",
+            name="location",
             field=models.CharField(blank=True, max_length=100, null=True),
         ),
         migrations.AddField(
-            model_name='organization',
-            name='logo',
-            field=models.ImageField(blank=True, null=True, upload_to='organization_logos/'),
+            model_name="organization",
+            name="logo",
+            field=models.ImageField(
+                blank=True, null=True, upload_to="organization_logos/"
+            ),
         ),
         migrations.AddField(
-            model_name='organization',
-            name='website',
+            model_name="organization",
+            name="website",
             field=models.URLField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='organization',
-            name='description',
+            model_name="organization",
+            name="description",
             field=models.TextField(blank=True, null=True),
         ),
     ]
